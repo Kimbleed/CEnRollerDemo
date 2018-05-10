@@ -8,10 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 /**
  * Created by 49479 on 2018/5/10.
@@ -21,13 +19,15 @@ public class CEnSingleRollerView extends LinearLayout {
 
     private Context mContext;
 
+    //装载元素item 的 Recycler
     private RollerRecycler mRoller;
 
     private LinearLayoutManager mLinearLayoutManager;
 
     private LayoutInflater mInflater;
 
-    private int zhengDirection = RollerRecycler.SCROLL_DIRECTION_UP;
+    // 滚轮的转到正方向
+    private int positiveDirection = RollerRecycler.SCROLL_DIRECTION_UP;
 
     //目标数字
     private int mTarget = -1;
@@ -75,7 +75,7 @@ public class CEnSingleRollerView extends LinearLayout {
                     }
 
                     //向上滚动(正在加载的滚动方向)
-                    if (mRoller.getDirection() == zhengDirection) {
+                    if (mRoller.getDirection() == positiveDirection) {
                         if (value == mTarget) {
                             if (mRoller.getSpeed() <= Math.abs(RollerRecycler.SPEED_MIN)) {
                                 controlSpeedVector(600, RollerRecycler.SPEED_MIN, 0, new MainActivity.AnimEndResponse() {
