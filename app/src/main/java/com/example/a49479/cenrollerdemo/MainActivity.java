@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 
     private static final int SPEED_MIN = -10;
 
-    private static final int SPEED_BACK = 15;
+    private static final int SPEED_BACK = 5;
 
     private int mTarget = 3;
 
@@ -129,44 +129,6 @@ public class MainActivity extends Activity {
         edit = (EditText)findViewById(R.id.et_locate);
     }
 
-    class RollerAdapter extends RecyclerView.Adapter<RollerViewHolder> {
-
-        private String[] mCells = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-
-        private LayoutInflater mInflater;
-
-        public RollerAdapter(Context context) {
-            mInflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        public RollerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = mInflater.inflate(R.layout.layout_cell, parent, false);
-            RollerViewHolder viewHolder = new RollerViewHolder(view);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(RollerViewHolder holder, int position) {
-            holder.tv.setText(mCells[position % mCells.length]);
-        }
-
-        @Override
-        public int getItemCount() {
-            return Integer.MAX_VALUE;
-        }
-    }
-
-    class RollerViewHolder extends RecyclerView.ViewHolder {
-
-        TextView tv;
-
-        public RollerViewHolder(View itemView) {
-            super(itemView);
-            tv = (TextView) itemView.findViewById(R.id.tv);
-        }
-
-    }
 
     public void controlSpeed(long time, int startSpeed, int endSpeed, final AnimEndResponse response) {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(startSpeed, endSpeed);
