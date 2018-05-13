@@ -2,19 +2,16 @@ package com.example.a49479.cenrollerdemo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 /**
  * Created by 49479 on 2018/5/10.
  */
 
 public class RollerDemoActivity extends Activity {
-    CEnSingleRollerView CEnSingleRollerView;
+    CEnSingleRollerView rvArr[] = new CEnSingleRollerView[6];
 
     private Button btn_locate;
 
@@ -26,13 +23,29 @@ public class RollerDemoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_roller);
-        CEnSingleRollerView = findViewById(R.id.rv);
+        rvArr[0] = findViewById(R.id.rv_1);
+        rvArr[1] = findViewById(R.id.rv_2);
+        rvArr[2] = findViewById(R.id.rv_3);
+        rvArr[3] = findViewById(R.id.rv_4);
+        rvArr[4] = findViewById(R.id.rv_5);
+        rvArr[5] = findViewById(R.id.rv_6);
+
 
         btn_locate = (Button) findViewById(R.id.btn_locate);
         btn_locate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CEnSingleRollerView.stopRoll(3);
+                String tv = edit.getText().toString();
+                int tvInt = -1;
+                try {
+                    tvInt = Integer.parseInt(tv);
+                } catch (Exception e) {
+
+                }
+                for (int i = rvArr.length - 1; i >= 0; i--) {
+                    rvArr[i].stopRoll(tvInt % 10);
+                    tvInt /= 10;
+                }
             }
         });
 
@@ -40,7 +53,9 @@ public class RollerDemoActivity extends Activity {
         btn_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CEnSingleRollerView.startRoll();
+                for (CEnSingleRollerView rv : rvArr) {
+                    rv.startRoll();
+                }
             }
         });
 

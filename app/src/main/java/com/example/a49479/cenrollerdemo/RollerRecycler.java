@@ -11,17 +11,17 @@ import android.util.AttributeSet;
 
 public class RollerRecycler extends RecyclerView {
 
-    private int mRollSpeed = SPEED_MAX;
+    public int SPEED_MAX = 30;
+    public int SPEED_MIN = 7;
+    public int SPEED_BACK = 5;
 
-    public static final int SPEED_MAX = 30;
-    public static final int SPEED_MIN = 10;
-    public static final int SPEED_BACK = 5;
+    private int mRollSpeed = SPEED_MAX;
 
     public static final int SCROLL_DIRECTION_UP = -1;       // 速度 mRollSpeed <0  方向 向上滚动
     public static final int SCROLL_DIRECTION_DOWN = 1;     // 速度 mRollSpeed >0  方向 向下滚动
     public static final int SCROLL_STOP = 0;
 
-    private static int mDirection =SCROLL_STOP;
+    private int mDirection =SCROLL_STOP;
 
     public RollerRecycler(Context context) {
         super(context);
@@ -105,4 +105,7 @@ public class RollerRecycler extends RecyclerView {
         }
     }
 
+    public void setSPEED_MAX(int SPEED_MAX) {
+        this.SPEED_MAX = SPEED_MAX;
+    }
 }

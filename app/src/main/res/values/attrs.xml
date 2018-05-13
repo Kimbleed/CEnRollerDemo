@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CEnSingleRollerView">
-        <attr name="roller_height" format="integer"/>
+        <attr name="roll_direction">
+            <enum name="up" value="-1"></enum>
+            <enum name="down" value="1"></enum>
+        </attr>
+        <attr name="roller_speed_max" format="integer"/>
         <attr name="item_layout" format="reference"/>
+        <attr name="start_index" format="integer"/>
     </declare-styleable>
 
 </resources>

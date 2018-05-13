@@ -1,42 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <com.example.a49479.cenrollerdemo.CEnSingleRollerView
-        android:id="@+id/rv"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:item_layout="@layout/layout_tv_colorful"
-        android:layout_weight="1"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.example.a49479.cenrollerdemo.CEnSingleRollerView
+            android:id="@+id/rv_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:roll_direction="up"
+            app:start_index="1"
+            app:roller_speed_max="50"
+            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+
+        <com.example.a49479.cenrollerdemo.CEnSingleRollerView
+            android:id="@+id/rv_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:roller_speed_max="80"
+            app:roll_direction="up"
+            app:start_index="2"
+            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+
+        <com.example.a49479.cenrollerdemo.CEnSingleRollerView
+            android:id="@+id/rv_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:roller_speed_max="110"
+            app:start_index="9"
+            app:roll_direction="up"
+            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+
+        <com.example.a49479.cenrollerdemo.CEnSingleRollerView
+            android:id="@+id/rv_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:roller_speed_max="150"
+            android:layout_weight="1"
+            app:start_index="8"
+            app:roll_direction="up"
+            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+
+        <com.example.a49479.cenrollerdemo.CEnSingleRollerView
+            android:id="@+id/rv_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:roller_speed_max="200"
+            app:roll_direction="up"
+            app:start_index="3"
+            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+
+        <com.example.a49479.cenrollerdemo.CEnSingleRollerView
+            android:id="@+id/rv_6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:start_index="7"
+            app:roller_speed_max="38"
+            app:roll_direction="up"
+            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/btn_locate"
-            android:text="LOCATE"
-            android:layout_below="@id/recycler"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recycler"
+            android:text="LOCATE" />
 
         <Button
             android:id="@+id/btn_scroll"
-            android:text="SCROLL"
-            android:layout_toRightOf="@id/btn_locate"
-            android:layout_below="@id/recycler"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/recycler"
+            android:layout_toRightOf="@id/btn_locate"
+            android:text="SCROLL" />
 
         <EditText
             android:id="@+id/et_locate"
-            android:layout_below="@id/btn_locate"
-            android:textSize="20sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_locate"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>

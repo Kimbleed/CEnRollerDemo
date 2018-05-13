@@ -9,7 +9,7 @@
         android:id="@+id/rl_parent_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="1dp"></RelativeLayout>
+        ></RelativeLayout>
 
     <com.example.a49479.cenrollerdemo.RollerRecycler
         android:id="@+id/recycler"
