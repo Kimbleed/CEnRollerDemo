@@ -17,13 +17,20 @@ public class RollerAdapter extends RecyclerView.Adapter<RollerAdapter.RollerView
 
     private LayoutInflater mInflater;
 
+    private int mLayoutRes = -1;
+
     public RollerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
+    public RollerAdapter(Context context,int layoutRes) {
+        mInflater = LayoutInflater.from(context);
+        mLayoutRes = layoutRes;
+    }
+
     @Override
     public RollerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.layout_cell, parent, false);
+        View view = mInflater.inflate(mLayoutRes==-1?R.layout.layout_cell:mLayoutRes, parent, false);
         RollerViewHolder viewHolder = new RollerViewHolder(view);
         return viewHolder;
     }

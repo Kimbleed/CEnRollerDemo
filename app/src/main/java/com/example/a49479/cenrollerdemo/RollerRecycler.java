@@ -17,8 +17,8 @@ public class RollerRecycler extends RecyclerView {
     public static final int SPEED_MIN = 10;
     public static final int SPEED_BACK = 5;
 
-    public static final int SCROLL_DIRECTION_UP = 1;       // 速度 mRollSpeed <0  方向 向上滚动
-    public static final int SCROLL_DIRECTION_DOWN = 2;     // 速度 mRollSpeed >0  方向 向下滚动
+    public static final int SCROLL_DIRECTION_UP = -1;       // 速度 mRollSpeed <0  方向 向上滚动
+    public static final int SCROLL_DIRECTION_DOWN = 1;     // 速度 mRollSpeed >0  方向 向下滚动
     public static final int SCROLL_STOP = 0;
 
     private static int mDirection =SCROLL_STOP;
@@ -96,7 +96,7 @@ public class RollerRecycler extends RecyclerView {
      * 获取滚动速度 (向量)
      * @return
      */
-    private int getSpeedVector(){
+    public int getSpeedVector(){
         if(mDirection == SCROLL_DIRECTION_UP){
             return -mRollSpeed;
         }

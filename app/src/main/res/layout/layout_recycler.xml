@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:visibility="invisible"
+        android:id="@+id/rl_parent_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="1dp"></RelativeLayout>
+
     <com.example.a49479.cenrollerdemo.RollerRecycler
         android:id="@+id/recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.example.a49479.cenrollerdemo.RollerRecycler>
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/rl_parent_size"
+        android:layout_centerInParent="true"
+        android:layout_alignTop="@id/rl_parent_size"></com.example.a49479.cenrollerdemo.RollerRecycler>
 </RelativeLayout>

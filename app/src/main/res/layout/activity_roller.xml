@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.example.a49479.cenrollerdemo.CEnSingleRollerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:item_layout="@layout/layout_tv_colorful"
         android:layout_weight="1"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
     <LinearLayout
         android:id="@+id/ll"

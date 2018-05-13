@@ -3,19 +3,23 @@ package com.example.a49479.cenrollerdemo;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 /**
  * Created by 49479 on 2018/5/10.
  */
 
-public class CEnSingleRollerView extends LinearLayout {
+public class CEnSingleRollerView extends RelativeLayout {
 
     private Context mContext;
 
@@ -25,6 +29,10 @@ public class CEnSingleRollerView extends LinearLayout {
     private LinearLayoutManager mLinearLayoutManager;
 
     private LayoutInflater mInflater;
+
+    private int rollerHeight = 0;
+
+    private int itemLayoutRes = -1;
 
     // 滚轮的转到正方向
     private int positiveDirection = RollerRecycler.SCROLL_DIRECTION_UP;
@@ -39,6 +47,9 @@ public class CEnSingleRollerView extends LinearLayout {
     public CEnSingleRollerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CEnSingleRollerView);
+//        rollerHeight = a.getInteger(R.styleable.CEnSingleRollerView_roller_height,100);
+        itemLayoutRes = a.getResourceId(R.styleable.CEnSingleRollerView_item_layout, R.layout.layout_cell);
     }
 
     public CEnSingleRollerView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -46,7 +57,7 @@ public class CEnSingleRollerView extends LinearLayout {
         init(context);
     }
 
-    public void init(Context context){
+    public void init(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
     }
@@ -54,11 +65,13 @@ public class CEnSingleRollerView extends LinearLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if(mRoller ==null) {
-            View view = mInflater.inflate(R.layout.layout_recycler, this, false);
-            mRoller = (RollerRecycler) view.findViewById(R.id.recycler);
-            mRoller.setAdapter(new RollerAdapter(getContext()));
-            mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        if (mRoller == null) {
+            //RollerRecycler 的 配置
+            View containerView = mInflater.inflate(R.layout.layout_recycler, this, false);
+            mRoller = containerView.findViewById(R.id.recycler);
+            mRoller.setAdapter(itemLayoutRes == -1 ? new RollerAdapter(getContext()) : new RollerAdapter(getContext(), itemLayoutRes));
+            mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, positiveDirection != RollerRecycler.SCROLL_DIRECTION_UP
+            );
             mRoller.setLayoutManager(mLinearLayoutManager);
             mRoller.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
@@ -69,19 +82,22 @@ public class CEnSingleRollerView extends LinearLayout {
 
 
                     if (mTarget != -1) {
-                        if(value == mTarget)
+                        if (value == mTarget && mRoller.getDirection() != positiveDirection) {
                             mRoller.stopRoll();
-                        return;
+                            return;
+                        }
                     }
 
                     //向上滚动(正在加载的滚动方向)
                     if (mRoller.getDirection() == positiveDirection) {
                         if (value == mTarget) {
                             if (mRoller.getSpeed() <= Math.abs(RollerRecycler.SPEED_MIN)) {
-                                controlSpeedVector(600, RollerRecycler.SPEED_MIN, 0, new MainActivity.AnimEndResponse() {
+                                int direction = mRoller.getDirection();
+                                controlSpeedVector(300, direction * mRoller.getSpeed(), 0, new AnimEndResponse() {
                                     @Override
                                     public void onResponse() {
                                         mRoller.setSpeed(RollerRecycler.SPEED_BACK);
+                                        mRoller.setDirection(positiveDirection == RollerRecycler.SCROLL_DIRECTION_UP ? RollerRecycler.SCROLL_DIRECTION_DOWN : RollerRecycler.SCROLL_DIRECTION_UP);
                                     }
                                 });
                             }
@@ -90,7 +106,17 @@ public class CEnSingleRollerView extends LinearLayout {
 
                 }
             });
-            addView(view);
+
+            //控制RollerRecycler 的高度，只展示一个item的高度
+            RelativeLayout rl = containerView.findViewById(R.id.rl_parent_size);
+            View parentSize =  mInflater.inflate(itemLayoutRes == -1?R.layout.layout_cell:itemLayoutRes,rl,false);
+            rl.addView(parentSize);
+
+            RelativeLayout.LayoutParams containerLp = (RelativeLayout.LayoutParams) containerView.getLayoutParams();
+            containerLp.addRule(RelativeLayout.CENTER_IN_PARENT);
+            containerView.setLayoutParams(containerLp);
+
+            addView(containerView);
         }
     }
 
@@ -99,17 +125,18 @@ public class CEnSingleRollerView extends LinearLayout {
         super.onLayout(changed, l, t, r, b);
     }
 
-    public void startRoll(){
+    public void startRoll() {
         mTarget = -1;
-        mRoller.startRoll(true);
+        mRoller.startRoll(positiveDirection == RollerRecycler.SCROLL_DIRECTION_UP);
     }
 
-    public void stopRoll(int target){
+    public void stopRoll(int target) {
         mTarget = target;
-        controlSpeedVector(2000,mRoller.getSpeed(),RollerRecycler.SPEED_MIN,null);
+        int direction = mRoller.getDirection() ;
+        controlSpeedVector(2000, direction * mRoller.getSpeed(), direction * RollerRecycler.SPEED_MIN, null);
     }
 
-    private void controlSpeedVector(long time, int startSpeed, int endSpeed, final MainActivity.AnimEndResponse response) {
+    private void controlSpeedVector(long time, int startSpeed, int endSpeed, final AnimEndResponse response) {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(startSpeed, endSpeed);
         valueAnimator.setDuration(time);
         valueAnimator.setInterpolator(new DecelerateInterpolator());
@@ -117,8 +144,8 @@ public class CEnSingleRollerView extends LinearLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int value = (int) animation.getAnimatedValue();
-                mRoller.setSpeed(value);
-                mRoller.setDirection(value>0?RollerRecycler.SCROLL_DIRECTION_UP:RollerRecycler.SCROLL_DIRECTION_DOWN);
+                mRoller.setSpeed(Math.abs(value));
+                mRoller.setDirection(value < 0 ? RollerRecycler.SCROLL_DIRECTION_UP : RollerRecycler.SCROLL_DIRECTION_DOWN);
             }
         });
         valueAnimator.addListener(new Animator.AnimatorListener() {
@@ -144,5 +171,9 @@ public class CEnSingleRollerView extends LinearLayout {
             }
         });
         valueAnimator.start();
+    }
+
+    public interface AnimEndResponse {
+        void onResponse();
     }
 }
