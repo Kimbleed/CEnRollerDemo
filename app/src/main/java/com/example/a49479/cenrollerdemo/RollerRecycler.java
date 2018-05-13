@@ -108,4 +108,8 @@ public class RollerRecycler extends RecyclerView {
     public void setSPEED_MAX(int SPEED_MAX) {
         this.SPEED_MAX = SPEED_MAX;
     }
+
+    public void setSPEED_BACK(int SPEED_BACK) {
+        this.SPEED_BACK = SPEED_BACK;
+    }
 }

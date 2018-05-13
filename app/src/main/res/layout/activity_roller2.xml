@@ -15,60 +15,66 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:roll_direction="up"
-            app:start_index="1"
+            app:display_value="@array/char_arr"
+            app:item_layout="@layout/layout_tv_colorful"
             app:loading_speed="50"
-            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+            app:roll_direction="up"
+            app:start_index="1"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
         <com.example.a49479.cenrollerdemo.CEnSingleRollerView
             android:id="@+id/rv_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            app:display_value="@array/char_arr"
+            app:item_layout="@layout/layout_tv_colorful"
             app:loading_speed="80"
             app:roll_direction="up"
-            app:start_index="2"
-            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+            app:start_index="2"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
         <com.example.a49479.cenrollerdemo.CEnSingleRollerView
             android:id="@+id/rv_3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            app:display_value="@array/char_arr"
+            app:item_layout="@layout/layout_tv_colorful"
             app:loading_speed="110"
-            app:start_index="9"
             app:roll_direction="up"
-            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+            app:start_index="9"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
         <com.example.a49479.cenrollerdemo.CEnSingleRollerView
             android:id="@+id/rv_4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:loading_speed="150"
             android:layout_weight="1"
-            app:start_index="8"
+            app:display_value="@array/char_arr"
+            app:item_layout="@layout/layout_tv_colorful"
+            app:loading_speed="150"
             app:roll_direction="up"
-            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+            app:start_index="8"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
         <com.example.a49479.cenrollerdemo.CEnSingleRollerView
             android:id="@+id/rv_5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            app:display_value="@array/char_arr"
+            app:item_layout="@layout/layout_tv_colorful"
             app:loading_speed="200"
             app:roll_direction="up"
-            app:start_index="3"
-            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+            app:start_index="3"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
         <com.example.a49479.cenrollerdemo.CEnSingleRollerView
             android:id="@+id/rv_6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:start_index="7"
+            app:display_value="@array/char_arr"
+            app:item_layout="@layout/layout_tv_colorful"
             app:loading_speed="38"
             app:roll_direction="up"
-            app:item_layout="@layout/layout_tv_colorful"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
+            app:start_index="7"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
     </LinearLayout>
 
     <LinearLayout

@@ -10,9 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 /**
@@ -30,17 +28,32 @@ public class CEnSingleRollerView extends RelativeLayout {
 
     private LayoutInflater mInflater;
 
-    private int speedMax = -1;
+    //显示的元素
+    private String arrDisplay[];
 
+    //加载中的滚动速度
+    private int loadingSpeed = -1;
+
+    //指定目标后，回弹速度
+    private int springbackSpeed = -1;
+
+    //item布局 res
     private int itemLayoutRes = -1;
 
+    //滚动的起点index
     private int mStartIndex = 0;
 
-    // 滚轮的转到正方向
+    // 滚轮滚动的正方向
     private int positiveDirection = RollerRecycler.SCROLL_DIRECTION_UP;
 
+    //从加载中的滚动速度 减速到 最小值 的 时间
+    private int decelerationTime = 1000;
+
+    //指定目标后，回弹加速的时间
+    private int springbackAccelerateTime = 300;
+
     //目标数字
-    private int mTarget = -1;
+    private int mTargetIndex = -1;
 
     public CEnSingleRollerView(Context context) {
         super(context);
@@ -49,22 +62,40 @@ public class CEnSingleRollerView extends RelativeLayout {
     public CEnSingleRollerView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CEnSingleRollerView);
-        itemLayoutRes = a.getResourceId(R.styleable.CEnSingleRollerView_item_layout, R.layout.layout_cell);
-        positiveDirection = a.getInteger(R.styleable.CEnSingleRollerView_roll_direction,RollerRecycler.SCROLL_DIRECTION_UP);
-        speedMax = a.getInteger(R.styleable.CEnSingleRollerView_roller_speed_max,-1);
-        mStartIndex = a.getInteger(R.styleable.CEnSingleRollerView_start_index,0);
-        a.recycle();
+        initAttrs(context,attrs);
     }
 
     public CEnSingleRollerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
+        initAttrs(context,attrs);
     }
 
+    /**
+     * 初始化
+     * @param context
+     */
     public void init(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(mContext);
+    }
+
+    /**
+     * 获取xml 中设值
+     * @param context
+     * @param attrs
+     */
+    public void initAttrs(Context context,AttributeSet attrs){
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CEnSingleRollerView);
+        itemLayoutRes = a.getResourceId(R.styleable.CEnSingleRollerView_item_layout, R.layout.layout_cell);
+        positiveDirection = a.getInteger(R.styleable.CEnSingleRollerView_roll_direction,RollerRecycler.SCROLL_DIRECTION_UP);
+        loadingSpeed = a.getInteger(R.styleable.CEnSingleRollerView_loading_speed,30);
+        springbackSpeed = a.getInteger(R.styleable.CEnSingleRollerView_springback_speed,10);
+        mStartIndex = a.getInteger(R.styleable.CEnSingleRollerView_start_index,0);
+        decelerationTime = a.getInteger(R.styleable.CEnSingleRollerView_decelerate_time,1000);
+        springbackAccelerateTime = a.getInteger(R.styleable.CEnSingleRollerView_springback_acc_time,300);
+        arrDisplay = context.getResources().getStringArray(a.getResourceId(R.styleable.CEnSingleRollerView_display_value,R.array.number_arr));
+        a.recycle();
     }
 
     @Override
@@ -74,10 +105,9 @@ public class CEnSingleRollerView extends RelativeLayout {
             //RollerRecycler 的 配置
             View containerView = mInflater.inflate(R.layout.layout_recycler, this, false);
             mRoller = containerView.findViewById(R.id.recycler);
-            if(speedMax!=-1) {
-                mRoller.setSPEED_MAX(speedMax);
-            }
-            mRoller.setAdapter(itemLayoutRes == -1 ? new RollerAdapter(getContext()) : new RollerAdapter(getContext(), itemLayoutRes));
+            mRoller.setSPEED_MAX(loadingSpeed);
+            mRoller.setSPEED_BACK(springbackSpeed);
+            mRoller.setAdapter(itemLayoutRes == -1 ? new RollerAdapter(getContext()) : new RollerAdapter(getContext(), itemLayoutRes, arrDisplay));
             mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, positiveDirection != RollerRecycler.SCROLL_DIRECTION_UP
             );
             mRoller.setLayoutManager(mLinearLayoutManager);
@@ -89,12 +119,12 @@ public class CEnSingleRollerView extends RelativeLayout {
                 public void onScrolled(final RecyclerView recyclerView, int dx, int dy) {
 
                     int position = mLinearLayoutManager.findFirstVisibleItemPosition()+1;
-                    int value = position % 10;
+                    int index = position % arrDisplay.length;
 
 
-                    if (mTarget != -1) {
-                        if (value == mTarget && mRoller.getDirection() != positiveDirection) {
-                            Log.i(CEnSingleRollerView.class.getName(),"target value:"+mTarget);
+                    if (mTargetIndex != -1) {
+                        if (index == mTargetIndex && mRoller.getDirection() != positiveDirection) {
+                            Log.i(CEnSingleRollerView.class.getName(),"target value:"+ mTargetIndex);
                             mRoller.stopRoll();
                             return;
                         }
@@ -102,10 +132,10 @@ public class CEnSingleRollerView extends RelativeLayout {
 
                     //向上滚动(正在加载的滚动方向)
                     if (mRoller.getDirection() == positiveDirection) {
-                        if (value == mTarget) {
+                        if (index == mTargetIndex) {
                             if (mRoller.getSpeed() <= Math.abs(mRoller.SPEED_MIN)) {
                                 int direction = mRoller.getDirection();
-                                controlSpeedVector(300, direction * mRoller.getSpeed(), 0, new AnimEndResponse() {
+                                controlSpeedVector(springbackAccelerateTime, direction * mRoller.getSpeed(), 0, new AnimEndResponse() {
                                     @Override
                                     public void onResponse() {
                                         mRoller.setSpeed(mRoller.SPEED_BACK);
@@ -124,6 +154,7 @@ public class CEnSingleRollerView extends RelativeLayout {
             View parentSize =  mInflater.inflate(itemLayoutRes == -1?R.layout.layout_cell:itemLayoutRes,rl,false);
             rl.addView(parentSize);
 
+            //居中
             RelativeLayout.LayoutParams containerLp = (RelativeLayout.LayoutParams) containerView.getLayoutParams();
             containerLp.addRule(RelativeLayout.CENTER_IN_PARENT);
             containerView.setLayoutParams(containerLp);
@@ -137,17 +168,48 @@ public class CEnSingleRollerView extends RelativeLayout {
         super.onLayout(changed, l, t, r, b);
     }
 
+    /**
+     * 开始滚动
+     */
     public void startRoll() {
-        mTarget = -1;
+        mTargetIndex = -1;
         mRoller.startRoll(positiveDirection == RollerRecycler.SCROLL_DIRECTION_UP);
     }
 
-    public void stopRoll(int target) {
-        mTarget = target;
+    /**
+     * 停止滚动，停在指定位置
+     * @param targetIndex
+     */
+    public void stopRoll(int targetIndex) {
+        mTargetIndex = targetIndex;
         int direction = mRoller.getDirection() ;
-        controlSpeedVector(1000, direction * mRoller.getSpeed(), direction * mRoller.SPEED_MIN, null);
+        controlSpeedVector(decelerationTime, direction * mRoller.getSpeed(), direction * mRoller.SPEED_MIN, null);
     }
 
+    /**
+     * 停止滚动，停在指定字符
+     * @param targetStr
+     */
+    public void stopRoll(String targetStr) {
+        for(int i=0;i<arrDisplay.length;i++){
+            if(targetStr.equals(arrDisplay[i])){
+                mTargetIndex = i;
+                break;
+            }
+        }
+        int direction = mRoller.getDirection() ;
+        controlSpeedVector(decelerationTime, direction * mRoller.getSpeed(), direction * mRoller.SPEED_MIN, null);
+    }
+
+
+
+    /**
+     * 控制滚动的 矢量速度 ： speed 速度大小  direction 方向
+     * @param time
+     * @param startSpeed
+     * @param endSpeed
+     * @param response
+     */
     private void controlSpeedVector(long time, int startSpeed, int endSpeed, final AnimEndResponse response) {
         ValueAnimator valueAnimator = ValueAnimator.ofInt(startSpeed, endSpeed);
         valueAnimator.setDuration(time);

@@ -5,9 +5,13 @@
             <enum name="up" value="-1"></enum>
             <enum name="down" value="1"></enum>
         </attr>
-        <attr name="roller_speed_max" format="integer"/>
+        <attr name="loading_speed" format="integer"/>
+        <attr name="springback_speed" format="integer"/>
         <attr name="item_layout" format="reference"/>
         <attr name="start_index" format="integer"/>
+        <attr name="decelerate_time" format="integer"/>
+        <attr name="springback_acc_time" format="integer"/>
+        <attr name="display_value"  format="reference"/>
     </declare-styleable>
 
 </resources>

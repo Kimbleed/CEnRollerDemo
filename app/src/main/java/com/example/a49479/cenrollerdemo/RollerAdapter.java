@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class RollerAdapter extends RecyclerView.Adapter<RollerAdapter.RollerViewHolder> {
 
-    private String[] mCells = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    private String[] mCells = null;//{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
     private LayoutInflater mInflater;
 
@@ -26,6 +26,12 @@ public class RollerAdapter extends RecyclerView.Adapter<RollerAdapter.RollerView
     public RollerAdapter(Context context,int layoutRes) {
         mInflater = LayoutInflater.from(context);
         mLayoutRes = layoutRes;
+    }
+
+    public RollerAdapter(Context context,int layoutRes,String[] arrs) {
+        mInflater = LayoutInflater.from(context);
+        mLayoutRes = layoutRes;
+        mCells = arrs;
     }
 
     @Override
