@@ -15,9 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:display_value="@array/char_arr"
+            app:decelerate_time="10"
+            app:display_value="@array/number_arr"
             app:item_layout="@layout/layout_tv_colorful"
-            app:loading_speed="50"
+            app:loading_speed="40"
             app:roll_direction="up"
             app:start_index="1"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
@@ -26,9 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:display_value="@array/char_arr"
+            app:decelerate_time="10"
+            app:display_value="@array/number_arr"
             app:item_layout="@layout/layout_tv_colorful"
-            app:loading_speed="80"
+            app:loading_speed="40"
             app:roll_direction="up"
             app:start_index="2"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
@@ -37,9 +39,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:display_value="@array/char_arr"
+            app:decelerate_time="10"
+            app:display_value="@array/number_arr"
             app:item_layout="@layout/layout_tv_colorful"
-            app:loading_speed="110"
+            app:loading_speed="40"
             app:roll_direction="up"
             app:start_index="9"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
@@ -48,9 +51,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:display_value="@array/char_arr"
+            app:decelerate_time="10"
+            app:display_value="@array/number_arr"
             app:item_layout="@layout/layout_tv_colorful"
-            app:loading_speed="150"
+            app:loading_speed="40"
             app:roll_direction="up"
             app:start_index="8"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
@@ -59,9 +63,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:display_value="@array/char_arr"
+            app:decelerate_time="10"
+            app:display_value="@array/number_arr"
             app:item_layout="@layout/layout_tv_colorful"
-            app:loading_speed="200"
+            app:loading_speed="40"
             app:roll_direction="up"
             app:start_index="3"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
 
@@ -70,9 +75,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:display_value="@array/char_arr"
+            app:decelerate_time="10"
+            app:display_value="@array/number_arr"
             app:item_layout="@layout/layout_tv_colorful"
-            app:loading_speed="38"
+            app:loading_speed="40"
             app:roll_direction="up"
             app:start_index="7"></com.example.a49479.cenrollerdemo.CEnSingleRollerView>
     </LinearLayout>

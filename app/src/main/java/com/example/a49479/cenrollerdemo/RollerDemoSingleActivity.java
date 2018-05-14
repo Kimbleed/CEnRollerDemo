@@ -7,11 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * Created by 49479 on 2018/5/13.
+ * Created by 49479 on 2018/5/14.
  */
 
-public class RollerStrDemoActivity extends Activity {
-    CEnSingleRollerView rvArr[] = new CEnSingleRollerView[6];
+public class RollerDemoSingleActivity extends Activity {
+
+    CEnSingleRollerView rv;
 
     private Button btn_locate;
 
@@ -22,23 +23,14 @@ public class RollerStrDemoActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_roller2);
-        rvArr[0] = findViewById(R.id.rv_1);
-        rvArr[1] = findViewById(R.id.rv_2);
-        rvArr[2] = findViewById(R.id.rv_3);
-        rvArr[3] = findViewById(R.id.rv_4);
-        rvArr[4] = findViewById(R.id.rv_5);
-        rvArr[5] = findViewById(R.id.rv_6);
-
-
+        setContentView(R.layout.activity_roller3);
+        rv = findViewById(R.id.rv_1);
         btn_locate = (Button) findViewById(R.id.btn_locate);
         btn_locate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String tv = edit.getText().toString();
-                for (int i = 0;i<rvArr.length; i++) {
-                    rvArr[i].stopOnTarget(tv.charAt(i)+"");
-                }
+                rv.stopOnTarget(tv);
             }
         });
 
@@ -46,13 +38,10 @@ public class RollerStrDemoActivity extends Activity {
         btn_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i =0;i<rvArr.length;i++) {
-                    rvArr[i].startRoll();
-                }
+                rv.startRoll();
             }
         });
 
         edit = (EditText) findViewById(R.id.et_locate);
-
     }
 }

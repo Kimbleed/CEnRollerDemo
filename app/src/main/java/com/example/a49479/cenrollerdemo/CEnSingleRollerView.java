@@ -126,14 +126,16 @@ public class CEnSingleRollerView extends RelativeLayout {
                         if (index == mTargetIndex && mRoller.getDirection() != positiveDirection) {
                             Log.i(CEnSingleRollerView.class.getName(),"target value:"+ mTargetIndex);
                             mRoller.stopRoll();
+                            mRoller.scrollToPosition(position);
                             return;
                         }
                     }
 
-                    //向上滚动(正在加载的滚动方向)
+                    //正在加载的滚动方向
                     if (mRoller.getDirection() == positiveDirection) {
                         if (index == mTargetIndex) {
                             if (mRoller.getSpeed() <= Math.abs(mRoller.SPEED_MIN)) {
+                                //滚动停止，停止后，反向
                                 int direction = mRoller.getDirection();
                                 controlSpeedVector(springbackAccelerateTime, direction * mRoller.getSpeed(), 0, new AnimEndResponse() {
                                     @Override
@@ -143,6 +145,9 @@ public class CEnSingleRollerView extends RelativeLayout {
                                     }
                                 });
                             }
+                        }
+                        else if(mRoller.getSpeed()>=Math.abs(mRoller.SPEED_MAX) && (index+1)%arrDisplay.length == mTargetIndex){
+                            decelerateLoadingSpeed();
                         }
                     }
 
@@ -180,23 +185,30 @@ public class CEnSingleRollerView extends RelativeLayout {
      * 停止滚动，停在指定位置
      * @param targetIndex
      */
-    public void stopRoll(int targetIndex) {
+    public void stopOnTarget(int targetIndex) {
         mTargetIndex = targetIndex;
-        int direction = mRoller.getDirection() ;
-        controlSpeedVector(decelerationTime, direction * mRoller.getSpeed(), direction * mRoller.SPEED_MIN, null);
+//        decelerateLoadingSpeed();
     }
 
     /**
      * 停止滚动，停在指定字符
      * @param targetStr
      */
-    public void stopRoll(String targetStr) {
+    public void stopOnTarget(String targetStr) {
         for(int i=0;i<arrDisplay.length;i++){
             if(targetStr.equals(arrDisplay[i])){
                 mTargetIndex = i;
                 break;
             }
         }
+//        int direction = mRoller.getDirection() ;
+//        controlSpeedVector(decelerationTime, direction * mRoller.getSpeed(), direction * mRoller.SPEED_MIN, null);
+    }
+
+    /**
+     * 降速
+     */
+    private void decelerateLoadingSpeed(){
         int direction = mRoller.getDirection() ;
         controlSpeedVector(decelerationTime, direction * mRoller.getSpeed(), direction * mRoller.SPEED_MIN, null);
     }

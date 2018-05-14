@@ -43,7 +43,7 @@ public class RollerDemoActivity extends Activity {
 
                 }
                 for (int i = rvArr.length - 1; i >= 0; i--) {
-                    rvArr[i].stopRoll(tvInt % 10);
+                    rvArr[i].stopOnTarget(tvInt % 10);
                     tvInt /= 10;
                 }
             }
