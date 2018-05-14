@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.example.a49479.cenrollerdemo.customView.RollerSixDigitView
+        android:id="@+id/custom_roller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.example.a49479.cenrollerdemo.customView.RollerSixDigitView>
+
+    <Button
+        android:id="@+id/btn_locate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOCATE" />
+
+    <Button
+        android:id="@+id/btn_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/btn_locate"
+        android:text="SCROLL" />
+
+    <EditText
+        android:id="@+id/et_locate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp" />
+</LinearLayout>

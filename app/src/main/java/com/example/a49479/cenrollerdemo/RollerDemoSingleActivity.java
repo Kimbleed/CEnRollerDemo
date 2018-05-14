@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.a49479.cenrollerdemo.customView.CEnSingleRollerView;
+
 /**
  * Created by 49479 on 2018/5/14.
  */
@@ -38,7 +40,7 @@ public class RollerDemoSingleActivity extends Activity {
         btn_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rv.startRoll();
+                rv.startRoll(null);
             }
         });
 

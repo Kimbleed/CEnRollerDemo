@@ -1,4 +1,4 @@
-package com.example.a49479.cenrollerdemo;
+package com.example.a49479.cenrollerdemo.customView;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.a49479.cenrollerdemo.R;
 
 /**
  * Created by 49479 on 2018/5/10.
@@ -36,7 +38,7 @@ public class RollerAdapter extends RecyclerView.Adapter<RollerAdapter.RollerView
 
     @Override
     public RollerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(mLayoutRes==-1?R.layout.layout_cell:mLayoutRes, parent, false);
+        View view = mInflater.inflate(mLayoutRes==-1? R.layout.layout_cell:mLayoutRes, parent, false);
         RollerViewHolder viewHolder = new RollerViewHolder(view);
         return viewHolder;
     }

@@ -1,4 +1,4 @@
-package com.example.a49479.cenrollerdemo;
+package com.example.a49479.cenrollerdemo.customView;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

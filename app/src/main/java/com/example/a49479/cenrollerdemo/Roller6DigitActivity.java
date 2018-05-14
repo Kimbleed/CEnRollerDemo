@@ -5,15 +5,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.a49479.cenrollerdemo.customView.CEnSingleRollerView;
+import com.example.a49479.cenrollerdemo.customView.RollerSixDigitView;
 
 /**
- * Created by 49479 on 2018/5/13.
+ * Created by 49479 on 2018/5/14.
  */
 
-public class RollerStrDemoActivity extends Activity {
-    CEnSingleRollerView rvArr[] = new CEnSingleRollerView[6];
+public class Roller6DigitActivity extends Activity {
+
+    private RollerSixDigitView rollerSixDigitView;
 
     private Button btn_locate;
 
@@ -21,26 +24,20 @@ public class RollerStrDemoActivity extends Activity {
 
     private EditText edit;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_roller2);
-        rvArr[0] = findViewById(R.id.rv_1);
-        rvArr[1] = findViewById(R.id.rv_2);
-        rvArr[2] = findViewById(R.id.rv_3);
-        rvArr[3] = findViewById(R.id.rv_4);
-        rvArr[4] = findViewById(R.id.rv_5);
-        rvArr[5] = findViewById(R.id.rv_6);
+        setContentView(R.layout.activity_6digit);
 
+        rollerSixDigitView = (RollerSixDigitView)findViewById(R.id.custom_roller);
 
         btn_locate = (Button) findViewById(R.id.btn_locate);
         btn_locate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String tv = edit.getText().toString();
-                for (int i = 0;i<rvArr.length; i++) {
-                    rvArr[i].stopOnTarget(tv.charAt(i)+"");
-                }
+                rollerSixDigitView.stopRoll(tv);
             }
         });
 
@@ -48,13 +45,16 @@ public class RollerStrDemoActivity extends Activity {
         btn_scroll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i =0;i<rvArr.length;i++) {
-                    rvArr[i].startRoll(null);
-                }
+                rollerSixDigitView.startRoll(new RollerSixDigitView.RollerSixDigitStopResponse() {
+                    @Override
+                    public void onResponse() {
+                        Toast.makeText(Roller6DigitActivity.this, "全停了", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         edit = (EditText) findViewById(R.id.et_locate);
-
     }
+
 }

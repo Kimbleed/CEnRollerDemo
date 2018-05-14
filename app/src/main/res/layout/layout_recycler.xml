@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         ></RelativeLayout>
 
-    <com.example.a49479.cenrollerdemo.RollerRecycler
+    <com.example.a49479.cenrollerdemo.customView.RollerRecycler
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@id/rl_parent_size"
         android:layout_centerInParent="true"
-        android:layout_alignTop="@id/rl_parent_size"></com.example.a49479.cenrollerdemo.RollerRecycler>
+        android:layout_alignTop="@id/rl_parent_size"></com.example.a49479.cenrollerdemo.customView.RollerRecycler>
 </RelativeLayout>

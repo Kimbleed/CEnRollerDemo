@@ -1,4 +1,4 @@
-package com.example.a49479.cenrollerdemo;
+package com.example.a49479.cenrollerdemo.customView;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.RelativeLayout;
+
+import com.example.a49479.cenrollerdemo.R;
 
 /**
  * Created by 49479 on 2018/5/10.
@@ -54,6 +56,8 @@ public class CEnSingleRollerView extends RelativeLayout {
 
     //目标数字
     private int mTargetIndex = -1;
+
+    private RollerStopResponse rollerStopResponse;
 
     public CEnSingleRollerView(Context context) {
         super(context);
@@ -107,6 +111,8 @@ public class CEnSingleRollerView extends RelativeLayout {
             mRoller = containerView.findViewById(R.id.recycler);
             mRoller.setSPEED_MAX(loadingSpeed);
             mRoller.setSPEED_BACK(springbackSpeed);
+            mRoller.setClickable(false);
+
             mRoller.setAdapter(itemLayoutRes == -1 ? new RollerAdapter(getContext()) : new RollerAdapter(getContext(), itemLayoutRes, arrDisplay));
             mLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, positiveDirection != RollerRecycler.SCROLL_DIRECTION_UP
             );
@@ -127,6 +133,8 @@ public class CEnSingleRollerView extends RelativeLayout {
                             Log.i(CEnSingleRollerView.class.getName(),"target value:"+ mTargetIndex);
                             mRoller.stopRoll();
                             mRoller.scrollToPosition(position);
+                            if(rollerStopResponse!=null)
+                                rollerStopResponse.onResponse();
                             return;
                         }
                     }
@@ -176,7 +184,8 @@ public class CEnSingleRollerView extends RelativeLayout {
     /**
      * 开始滚动
      */
-    public void startRoll() {
+    public void startRoll(RollerStopResponse response) {
+        rollerStopResponse = response;
         mTargetIndex = -1;
         mRoller.startRoll(positiveDirection == RollerRecycler.SCROLL_DIRECTION_UP);
     }
@@ -259,7 +268,15 @@ public class CEnSingleRollerView extends RelativeLayout {
         valueAnimator.start();
     }
 
+    public int getRollDirection(){
+        return mRoller.getDirection();
+    }
+
     public interface AnimEndResponse {
+        void onResponse();
+    }
+
+    public interface RollerStopResponse{
         void onResponse();
     }
 }
