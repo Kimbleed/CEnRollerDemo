@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.a49479.cenrollerdemo.customView.CEnSingleRollerView;
+import com.example.a49479.cenrollerdemo.customView.rollerView.CEnSingleRollerView;
 
 /**
  * Created by 49479 on 2018/5/14.

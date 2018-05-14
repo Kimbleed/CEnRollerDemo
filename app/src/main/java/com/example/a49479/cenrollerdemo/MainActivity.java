@@ -13,7 +13,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.a49479.cenrollerdemo.customView.RollerAdapter;
+import com.example.a49479.cenrollerdemo.customView.rollerView.RollerAdapter;
 
 import java.lang.ref.WeakReference;
 

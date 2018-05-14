@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.example.a49479.cenrollerdemo.customView.CEnSingleRollerView
+        <com.example.a49479.cenrollerdemo.customView.rollerView.CEnSingleRollerView
             android:id="@+id/rv_1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -20,7 +20,7 @@
             app:item_layout="@layout/layout_tv_colorful"
             app:loading_speed="50"
             app:roll_direction="up"
-            app:start_index="1"></com.example.a49479.cenrollerdemo.customView.CEnSingleRollerView>
+            app:start_index="1"></com.example.a49479.cenrollerdemo.customView.rollerView.CEnSingleRollerView>
 
 
     </LinearLayout>

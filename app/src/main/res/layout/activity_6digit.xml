@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.example.a49479.cenrollerdemo.customView.RollerSixDigitView
+    <com.example.a49479.cenrollerdemo.customView.rollerView.RollerSixDigitView
         android:id="@+id/custom_roller"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.example.a49479.cenrollerdemo.customView.RollerSixDigitView>
+        android:layout_height="wrap_content"></com.example.a49479.cenrollerdemo.customView.rollerView.RollerSixDigitView>
 
     <Button
         android:id="@+id/btn_locate"

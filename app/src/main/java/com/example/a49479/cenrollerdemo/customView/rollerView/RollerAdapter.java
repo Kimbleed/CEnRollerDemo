@@ -1,4 +1,4 @@
-package com.example.a49479.cenrollerdemo.customView;
+package com.example.a49479.cenrollerdemo.customView.rollerView;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
